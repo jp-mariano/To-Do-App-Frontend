@@ -1,6 +1,5 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { UserContext } from '../UserContext';
 import Head from '../components/Head';
 
 function Home() {
@@ -9,11 +8,10 @@ function Home() {
 		description: 'Jot down your goals for today!'
 	};
 	
-	const { user } = useContext(UserContext);
 	const [token, setToken] = useState();
 	useEffect(() => {
 		setToken(localStorage.getItem('token'));
-	}, [user.token]);
+	}, []);
 	
 	return (
 		<Fragment>
@@ -32,8 +30,7 @@ function Home() {
 					<a>Log In</a>
 				</Link>
 			}
-			<pre>1.{ user.token }</pre>
-			<pre>2.{ token }</pre>
+			<pre>{ token }</pre>
 		</Fragment>
 	);
 }

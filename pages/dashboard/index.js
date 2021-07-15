@@ -1,5 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../UserContext';
+import { Fragment, useEffect, useState } from 'react';
 import Head from '../../components/Head';
 
 function Dashboard() {
@@ -8,18 +7,16 @@ function Dashboard() {
 		description: 'Welcome to your dashboard!'
 	};
 	
-	const { user } = useContext(UserContext);
 	const [token, setToken] = useState();
 	useEffect(() => {
 		setToken(localStorage.getItem('token'));
-	}, [user.token]);
+	}, []);
 	
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
 			<h2>Hello from dashboard</h2>
-			<pre>1.{ user.token }</pre>
-			<pre>2.{ token }</pre>
+			<pre>{ token }</pre>
 		</Fragment>
 	);
 }

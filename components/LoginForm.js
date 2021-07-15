@@ -1,14 +1,11 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
-import { UserContext } from '../UserContext';
 import AppHelper from '../helpers/app-helper';
 import { Button, Form } from 'react-bootstrap';
 
 function LoginForm() {
 	const router = useRouter();
-	
-	const { setUser } = useContext(UserContext);
 	
 	// useStates
 	const [email, setEmail] = useState('');
@@ -70,7 +67,6 @@ function LoginForm() {
 			
 			const data = await response.json();
 			
-			setUser({ token: accessToken });
 			localStorage.setItem('token', accessToken);
 			
 			// Welcome alert
