@@ -70,10 +70,8 @@ function LoginForm() {
 			
 			const data = await response.json();
 			
-			setUser({
-				id: data._id,
-				token: accessToken
-			});
+			setUser({ token: accessToken });
+			localStorage.setItem('token', accessToken);
 			
 			// Welcome alert
 			Swal.fire('Welcome!', `How's your day, ${ data.givenName }?`, 'success');

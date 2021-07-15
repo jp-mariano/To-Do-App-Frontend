@@ -9,7 +9,8 @@ function Logout() {
 	
 	// Will run at least once just to clear user's credentials
 	useEffect(() => {
-		setUser({ id: null, token: null });
+		setUser({ token: null });
+		localStorage.clear();
 		router.push('/');
 	}, []);
 	

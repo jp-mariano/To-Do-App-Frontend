@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-	const [user, setUser] = useState({ id: null, token: null });
+	const [user, setUser] = useState({ token: null });
 	
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
