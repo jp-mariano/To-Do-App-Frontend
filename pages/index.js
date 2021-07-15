@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Head from '../components/Head';
+import AppHelper from '../helpers/app-helper';
 
 function Home() {
 	const headData = {
@@ -10,7 +11,7 @@ function Home() {
 	
 	const [token, setToken] = useState();
 	useEffect(() => {
-		setToken(localStorage.getItem('token'));
+		setToken(AppHelper.getAccessToken());
 	}, []);
 	
 	return (
