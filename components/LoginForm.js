@@ -73,7 +73,7 @@ function LoginForm() {
 			Swal.fire('Welcome!', `How's your day, ${ data.givenName }?`, 'success');
 			
 			// router
-			router.push('/');
+			router.push('/dashboard');
 			
 		} catch (err) {
 			console.error(err);
