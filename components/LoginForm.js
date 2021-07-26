@@ -58,7 +58,7 @@ function LoginForm() {
 		}
 	}
 	
-	// Fetching user's information upon login and save the id to UserContext
+	// Fetching user's information upon login and set the token to the local storage
 	async function getUserDetails(accessToken) {
 		try {
 			const response = await fetch(`${ AppHelper.API_URL }/users/details`, {

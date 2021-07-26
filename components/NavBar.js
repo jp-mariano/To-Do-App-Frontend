@@ -21,7 +21,7 @@ function NavBar() {
 					/>
 				</Navbar.Brand>
 				:
-				<Navbar.Brand href='#'>
+				<Navbar.Brand href='/'>
 					<img
 						src='/jpm-logo-white.png'
 						height='30'
@@ -52,7 +52,7 @@ function NavBar() {
 						</Nav>
 						
 						<Nav>
-							<Nav.Link href='#'>Register</Nav.Link>
+							<Nav.Link href='/register'>Register</Nav.Link>
 							<Nav.Link href='/login'>Log In</Nav.Link>
 						</Nav>
 					</Fragment>
