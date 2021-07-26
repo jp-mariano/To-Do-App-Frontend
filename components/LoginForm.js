@@ -25,7 +25,7 @@ function LoginForm() {
 			e.preventDefault();
 			
 			// Log In via Email
-			// Assign an access token to the user when log in is successful
+			// Assign an access token to the user when log in is successful and set the token to the local storage
 			const response = await fetch(`${ AppHelper.API_URL }/users/log-in`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -39,6 +39,7 @@ function LoginForm() {
 			
 			if (typeof data.accessToken !== 'undefined') {
 				getUserDetails(data.accessToken);
+				localStorage.setItem('token', data.accessToken);
 				
 				// Clears the form fields when finished
 				setEmail('');
@@ -58,7 +59,7 @@ function LoginForm() {
 		}
 	}
 	
-	// Fetching user's information upon login and set the token to the local storage
+	// Fetching user's information upon login
 	async function getUserDetails(accessToken) {
 		try {
 			const response = await fetch(`${ AppHelper.API_URL }/users/details`, {
@@ -66,9 +67,7 @@ function LoginForm() {
 			});
 			
 			const data = await response.json();
-			
-			localStorage.setItem('token', accessToken);
-			
+						
 			// Welcome alert
 			Swal.fire('Welcome!', `How's your day, ${ data.givenName }?`, 'success');
 			
@@ -84,7 +83,7 @@ function LoginForm() {
 		<Fragment>
 			<h2>Log In</h2>
 			<p>
-				Don't have an account yet? <a href='/'>Register now</a>
+				Don't have an account yet? <a href='/register'>Register now</a>
 			</p>
 			<Form onSubmit={ authenticateEmail }>
 				<Form.Group controlId='userEmail'>

@@ -1,5 +1,6 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import Head from '../../components/Head';
+import ToDoCards from '../../components/ToDoCards';
 import AppHelper from '../../helpers/app-helper';
 
 function Dashboard() {
@@ -8,16 +9,11 @@ function Dashboard() {
 		description: 'Welcome to your dashboard!'
 	};
 	
-	const [token, setToken] = useState();
-	useEffect(() => {
-		setToken(AppHelper.getAccessToken());
-	}, []);
-	
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
-			<h2>Hello from dashboard</h2>
-			<pre>{ token }</pre>
+			<h2>My To Do's</h2>
+			<ToDoCards />
 		</Fragment>
 	);
 }

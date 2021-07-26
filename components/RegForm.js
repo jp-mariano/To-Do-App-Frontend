@@ -17,9 +17,11 @@ function RegForm() {
 	const [showPassword, setShowPassword] = useState('password');
 	
 	// Effects
-	useEffect(() => {
+	useEffect(() => {		
 		if ((givenName !== '' && familyName !== '' && email !== '' && password1 !== '' && password2 !== '') && (password1 === password2)) {
 			setIsActive(true);
+		} else {
+			setIsActive(false);
 		}
 	}, [givenName, familyName, email, password1, password2]);
 	
@@ -80,7 +82,7 @@ function RegForm() {
 					icon: 'info',
 					title: 'Oops...',
 					text: 'User email is already taken. Try a different one.',
-					footer: `<a href="/">Go to Login page</a>`
+					footer: `<a href="/login">Go to Log In page instead.</a>`
 				});
 			}			
 			

@@ -4,6 +4,7 @@ import AppHelper from '../helpers/app-helper';
 
 function NavBar() {
 	const [token, setToken] = useState();
+	
 	useEffect(() => {
 		setToken(AppHelper.getAccessToken());
 	});
@@ -38,7 +39,6 @@ function NavBar() {
 					<Fragment>
 						<Nav className='me-auto'>
 							<Nav.Link href='/dashboard'>Dashboard</Nav.Link>
-							<Nav.Link href='#'>My Details</Nav.Link>
 						</Nav>
 						
 						<Nav>
