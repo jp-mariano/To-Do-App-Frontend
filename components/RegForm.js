@@ -95,7 +95,7 @@ function RegForm() {
 		<Fragment>
 			<h2>Register</h2>
 			<Form onSubmit={ registerUser }>
-				<h6>We'll never share your details with anyone else.</h6>
+				<h6>We&apos;ll never share your details with anyone else.</h6>
 				<Form.Group controlId='userGivenName'>
 					<Form.Control
 						type='text'

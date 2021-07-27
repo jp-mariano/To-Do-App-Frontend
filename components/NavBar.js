@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Nav, Navbar } from 'react-bootstrap';
 import AppHelper from '../helpers/app-helper';
 
@@ -13,7 +14,7 @@ function NavBar() {
 		<Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
 			{ token ?
 				<Navbar.Brand href='/dashboard'>
-					<img
+					<Image
 						src='/jpm-logo-white.png'
 						height='30'
 						width='30'
@@ -23,7 +24,7 @@ function NavBar() {
 				</Navbar.Brand>
 				:
 				<Navbar.Brand href='/'>
-					<img
+					<Image
 						src='/jpm-logo-white.png'
 						height='30'
 						width='30'

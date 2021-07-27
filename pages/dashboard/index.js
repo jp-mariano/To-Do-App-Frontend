@@ -12,7 +12,7 @@ function Dashboard() {
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
-			<h2>My To Do's</h2>
+			<h2>My To Do&apos;s</h2>
 			<ToDoCards />
 		</Fragment>
 	);

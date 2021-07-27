@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Swal from 'sweetalert2';
 import AppHelper from '../helpers/app-helper';
 import { Button, Form } from 'react-bootstrap';
@@ -83,7 +84,7 @@ function LoginForm() {
 		<Fragment>
 			<h2>Log In</h2>
 			<p>
-				Don't have an account yet? <a href='/register'>Register now</a>
+				Don&apos;t have an account yet? <Link href='/register'><a>Register now</a></Link>
 			</p>
 			<Form onSubmit={ authenticateEmail }>
 				<Form.Group controlId='userEmail'>
