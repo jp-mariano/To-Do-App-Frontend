@@ -30,8 +30,8 @@ function ToDoCards() {
 								<Card.Body>
 									<Card.Title>{ toDo.name }</Card.Title>
 									<Card.Text>{ toDo.description }</Card.Text>
-									<Button variant='warning'>Mark as done</Button>
-									<Button variant='danger'>Delete</Button>
+									<Button variant='info'>Mark as done</Button>
+									<Button variant='dark'>Edit</Button>
 								</Card.Body>
 							</Card>
 						);

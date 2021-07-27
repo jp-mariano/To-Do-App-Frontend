@@ -12,6 +12,7 @@ function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [isActive, setIsActive] = useState(false);
+	const [showPassword, setShowPassword] = useState('password');
 	
 	// Effect
 	useEffect(() => {
@@ -19,6 +20,14 @@ function LoginForm() {
 			setIsActive(true);
 		}
 	}, [email, password]);
+	
+	function passwordToggle() {
+		if (showPassword === 'password') {
+			setShowPassword('text');
+		} else {
+			setShowPassword('password');
+		}
+	}
 	
 	// Authentication process
 	async function authenticateEmail(e) {
@@ -47,11 +56,30 @@ function LoginForm() {
 				setPassword('');
 			} else {
 				if (data.error === 'email-does-not-exist') {
-					Swal.fire('Authentication Failed', 'User does not exist.', 'error');
+					Swal.fire({
+						icon: 'error',
+						title: 'Authentication Failed',
+						text: 'User does not exist.',
+						showConfirmButton: false,
+						showCloseButton: true,
+						footer: `<a href="/register">Want to register instead?</a>`
+					});
+					
 				} else if (data.error === 'incorrect-password') {
-					Swal.fire('Authentication Failed', 'Please check your password.', 'error');
+					Swal.fire({
+						icon: 'error',
+						title: 'Authentication Failed',
+						text: 'Please check your password.',
+						confirmButtonColor: '#212529'
+					});
+					
 				} else if (data.error === 'login-type-error') {
-					Swal.fire('Login Type Error', 'You may have registered through a different login method, try an alternative login method', 'error');
+					Swal.fire({
+						icon: 'error',
+						title: 'Login Type Error',
+						text: 'You may have registered through a different login method, try an alternative login method',
+						confirmButtonColor: '#212529'
+					});
 				}
 			}
 			
@@ -70,7 +98,13 @@ function LoginForm() {
 			const data = await response.json();
 						
 			// Welcome alert
-			Swal.fire('Welcome!', `How's your day, ${ data.givenName }?`, 'success');
+			Swal.fire({
+				icon: 'success',
+				title: 'Welcome!',
+				text: `How's your day, ${ data.givenName }?`,
+				showConfirmButton: false,
+				timer: 2468
+			});
 			
 			// router
 			router.push('/dashboard');
@@ -99,11 +133,19 @@ function LoginForm() {
 				
 				<Form.Group controlId='userPassword'>
 					<Form.Control
-						type='password'
+						type={ showPassword }
 						placeholder='Password'
 						value={ password }
 						onChange={(e) => setPassword(e.target.value)}
 						required
+					/>
+				</Form.Group>
+				
+				<Form.Group controlId='passwordToggle'>
+					<Form.Check
+						type='checkbox'
+						label='Show password'
+						onClick={ passwordToggle }
 					/>
 				</Form.Group>
 				
