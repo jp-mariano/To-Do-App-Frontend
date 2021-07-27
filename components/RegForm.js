@@ -71,7 +71,13 @@ function RegForm() {
 					setPassword2('');
 					
 					// Success message
-					Swal.fire('Success!', 'Thank you for registering with us.', 'success');
+					Swal.fire({
+						icon: 'success',
+						title: 'Yay!',
+						text: 'Thank you for registering with us.',
+						showConfirmButton: false,
+						timer: 3000
+					});
 					
 					// Redirect to Login page after registering
 					router.push('/login');
@@ -81,7 +87,9 @@ function RegForm() {
 				Swal.fire({
 					icon: 'info',
 					title: 'Oops...',
-					text: 'User email is already taken. Try a different one.',
+					text: 'User email is already taken. Please try a different one.',
+					showConfirmButton: false,
+					showCloseButton: true,
 					footer: `<a href="/login">Go to Log In page instead.</a>`
 				});
 			}			
