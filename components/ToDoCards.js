@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState } from 'react';
 import moment from 'moment';
 import AppHelper from '../helpers/app-helper';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Modal } from 'react-bootstrap';
 
 function ToDoCards() {
 	const [token, setToken] = useState();
 	const [toDoList, setToDoList] = useState([]);
+	const [showStatusModal, setShowStatusModal] = useState(false);
 	
 	useEffect(() => {
 		setToken(AppHelper.getAccessToken());
@@ -20,23 +21,37 @@ function ToDoCards() {
 				
 				const data = await response.json();
 				
-				const toDos = data.toDo.map(toDo => {
-					if (toDo.status === 'pending') {
+				let toDos;
+				
+				if (data.toDo.length > 0) {
+					// Render the user's to do list
+					toDos = data.toDo.map(toDo => {
+						if (toDo.status === 'pending') {
+							return (
+								<Card key={ toDo._id } className='mb-3'>
+									<Card.Header>
+										{ moment(toDo.toDoDate).format('D MMMM YYYY') }
+									</Card.Header>
+									<Card.Body>
+										<Card.Title>{ toDo.name }</Card.Title>
+										<Card.Text>{ toDo.description }</Card.Text>
+										<Button variant='info'>Mark as done</Button>
+										<Button variant='dark'>Edit</Button>
+									</Card.Body>
+								</Card>
+							);
+						}
+					});
+					
+				} else {
+					// Tell the user to create a to do
+					function createToDoText() {
 						return (
-							<Card key={ toDo._id } className='mb-3'>
-								<Card.Header>
-									{ moment(toDo.toDoDate).format('D MMMM YYYY') }
-								</Card.Header>
-								<Card.Body>
-									<Card.Title>{ toDo.name }</Card.Title>
-									<Card.Text>{ toDo.description }</Card.Text>
-									<Button variant='info'>Mark as done</Button>
-									<Button variant='dark'>Edit</Button>
-								</Card.Body>
-							</Card>
+							<h4>Create your first task today!</h4>
 						);
 					}
-				});
+					toDos = createToDoText();
+				}
 				
 				setToDoList(toDos);
 				
