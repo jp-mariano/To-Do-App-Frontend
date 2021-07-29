@@ -27,35 +27,53 @@ function ToDoCards() {
 				
 				let toDos;
 				
+				// Check if user is new, they're new if array length is equal to 0
 				if (data.toDo.length > 0) {
-					// Render the user's to do list
-					toDos = data.toDo.map(toDo => {
-						if (toDo.status === 'pending') {
-							return (
-								<Card key={ toDo._id } className='mb-3'>
-									<Card.Header>
-										{ moment(toDo.toDoDate).format('D MMMM YYYY') }
-									</Card.Header>
-									<Card.Body>
-										<Card.Title>{ toDo.name }</Card.Title>
-										<Card.Text>{ toDo.description }</Card.Text>
-										<Button
-											onClick={ () => setStatusToDone(toDo._id) }
-											variant='info'
-										>
-											Mark as done
-										</Button>
-										<Button variant='dark'>
-											Edit
-										</Button>
-									</Card.Body>
-								</Card>
-							);
-						}
+					// Check if all to do's are already done
+					const allDoneToDo = data.toDo.every(toDo => {
+						return toDo.status === 'done';
 					});
 					
+					if (allDoneToDo) {
+						// This means that all to do's are already done
+						// Give a simple message to the user
+						function createNewToDoText() {
+							return (
+								<h4>Wow! Already finished all of that? Create new ones if you want.</h4>
+							);
+						}
+						toDos = createNewToDoText();
+						
+					} else {
+						// Render the user's to do list
+						toDos = data.toDo.map(toDo => {
+							if (toDo.status === 'pending') {
+								return (
+									<Card key={ toDo._id } className='mb-3'>
+										<Card.Header>
+											{ moment(toDo.toDoDate).format('D MMMM YYYY') }
+										</Card.Header>
+										<Card.Body>
+											<Card.Title>{ toDo.name }</Card.Title>
+											<Card.Text>{ toDo.description }</Card.Text>
+											<Button
+												onClick={ () => setStatusToDone(toDo._id) }
+												variant='info'
+											>
+												Mark as done
+											</Button>
+											<Button variant='dark'>
+												Edit
+											</Button>
+										</Card.Body>
+									</Card>
+								);
+							}
+						});
+					}
+					
 				} else {
-					// Tell the user to create a to do
+					// Tell the new user to create a to do
 					function createToDoText() {
 						return (
 							<h4>Create your first task today!</h4>
