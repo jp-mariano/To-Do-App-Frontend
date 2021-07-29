@@ -1,12 +1,16 @@
 import { Fragment, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 import AppHelper from '../helpers/app-helper';
-import { Button, Card, Modal } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 
 function ToDoCards() {
+	const router = useRouter();
+	
+	// useStates
 	const [token, setToken] = useState();
 	const [toDoList, setToDoList] = useState([]);
-	const [showStatusModal, setShowStatusModal] = useState(false);
 	
 	useEffect(() => {
 		setToken(AppHelper.getAccessToken());
@@ -35,8 +39,15 @@ function ToDoCards() {
 									<Card.Body>
 										<Card.Title>{ toDo.name }</Card.Title>
 										<Card.Text>{ toDo.description }</Card.Text>
-										<Button variant='info'>Mark as done</Button>
-										<Button variant='dark'>Edit</Button>
+										<Button
+											onClick={ () => setStatusToDone(toDo._id) }
+											variant='info'
+										>
+											Mark as done
+										</Button>
+										<Button variant='dark'>
+											Edit
+										</Button>
 									</Card.Body>
 								</Card>
 							);
@@ -62,6 +73,47 @@ function ToDoCards() {
 		
 		fetchData();
 	}, [token]);
+	
+	// Change status to done
+	async function setStatusToDone(id) {
+		try	{
+			const shouldChange = await Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			});
+			
+			if (shouldChange.isConfirmed) {
+				const putRequest = await fetch(`${ AppHelper.API_URL }/users/edit/to-do-status/${ id }`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${ token }`
+					},
+					body: JSON.stringify({
+						status: 'done'
+					})
+				});
+				
+				const confirmationMsg = await Swal.fire(
+					'Deleted',
+					'Your file has been deleted.',
+					'success'
+				);
+				
+				if (confirmationMsg.isConfirmed) {
+					await router.reload();
+				}
+			}
+			
+		} catch (err) {
+			console.error(err);
+		}
+	}
 	
 	return (
 		<Fragment>
