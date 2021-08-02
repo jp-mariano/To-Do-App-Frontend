@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import AppHelper from '../helpers/app-helper';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, ToggleButton } from 'react-bootstrap';
 
-function ToDoCards() {
+function ToDoCards({ cardTypeProp } ) {
 	const router = useRouter();
 	
 	// useStates
@@ -48,7 +48,7 @@ function ToDoCards() {
 					} else {
 						// Render the user's to do list
 						toDos = data.toDo.map(toDo => {
-							if (toDo.status === 'pending') {	
+							if (toDo.status === 'pending' && cardTypeProp === 'pending') {
 								return (
 									<Card key={ toDo._id } className='mb-3'>
 										<Card.Header>
@@ -76,6 +76,34 @@ function ToDoCards() {
 										</Card.Body>
 									</Card>
 								);
+							} else if (toDo.status === 'done' && cardTypeProp === 'done') {
+								return (
+									<Card key={ toDo._id } className='mb-3'>
+										<Card.Header>
+											{ moment(toDo.toDoDate).format('D MMMM YYYY') }
+										</Card.Header>
+										<Card.Body>
+											<Card.Title>{ toDo.name }</Card.Title>
+											<Card.Text>{ toDo.description }</Card.Text>
+											<Button
+												onClick={ () => setStatusToDone(toDo._id) }
+												variant='info'
+											>
+												Mark as not done
+											</Button>
+											<Link
+												href={{
+													pathname: '/edit-to-do',
+													query: { id: toDo._id }
+												}}
+											>
+												<Button variant='danger'>
+													Delete
+												</Button>
+											</Link>
+										</Card.Body>
+									</Card>
+								);
 							}
 						});
 					}
@@ -98,7 +126,7 @@ function ToDoCards() {
 		}
 		
 		fetchData();
-	}, [token]);
+	}, [token, cardTypeProp]);
 	
 	// Change status to done
 	async function setStatusToDone(id) {
