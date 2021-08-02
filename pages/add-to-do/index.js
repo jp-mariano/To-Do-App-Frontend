@@ -122,21 +122,39 @@ function AddToDo() {
 				</Form.Group>
 				
 				{ isActive ?
-					<Button
-						className='btn btn-block mb-3'
-						variant='primary'
-						type='submit'
-					>
-						Create
-					</Button>
+					<Fragment>
+						<Button
+							className='btn btn-block mb-3'
+							variant='primary'
+							type='submit'
+						>
+							Create
+						</Button>
+						<Button
+							className='btn btn-block mb-3'
+							variant='dark'
+							href='/dashboard'
+						>
+							Back to Dashboard
+						</Button>
+					</Fragment>
 					:
-					<Button
-						className='btn btn-block mb-3'
-						variant='secondary'
-						disabled
-					>
-						Create
-					</Button>
+					<Fragment>
+						<Button
+							className='btn btn-block mb-3'
+							variant='secondary'
+							disabled
+						>
+							Create
+						</Button>
+						<Button
+							className='btn btn-block mb-3'
+							variant='dark'
+							href='/dashboard'
+						>
+							Back to Dashboard
+						</Button>
+					</Fragment>
 				}
 			</Form>
 		</Fragment>

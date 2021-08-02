@@ -62,7 +62,7 @@ function ToDoCards() {
 											>
 												Mark as done
 											</Button>
-											<Button variant='dark'>
+											<Button variant='warning'>
 												Edit
 											</Button>
 										</Card.Body>
@@ -97,12 +97,12 @@ function ToDoCards() {
 		try	{
 			const shouldChange = await Swal.fire({
 				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
-				icon: 'warning',
+				text: "This will send it to your Done To Do's.",
+				icon: 'info',
 				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
+				confirmButtonColor: '#3fc3ee',
 				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
+				confirmButtonText: 'Yes, proceed.'
 			});
 			
 			if (shouldChange.isConfirmed) {
@@ -117,11 +117,12 @@ function ToDoCards() {
 					})
 				});
 				
-				const confirmationMsg = await Swal.fire(
-					'Deleted',
-					'Your file has been deleted.',
-					'success'
-				);
+				const confirmationMsg = await Swal.fire({
+					title: 'Success!',
+					text: "Your file has been sent to Done To Do's.",
+					icon: 'success',
+					confirmButtonColor: '#3fc3ee'
+				});
 				
 				if (confirmationMsg.isConfirmed) {
 					await router.reload();
