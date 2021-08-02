@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import Swal from 'sweetalert2';
@@ -47,7 +48,7 @@ function ToDoCards() {
 					} else {
 						// Render the user's to do list
 						toDos = data.toDo.map(toDo => {
-							if (toDo.status === 'pending') {
+							if (toDo.status === 'pending') {	
 								return (
 									<Card key={ toDo._id } className='mb-3'>
 										<Card.Header>
@@ -62,9 +63,16 @@ function ToDoCards() {
 											>
 												Mark as done
 											</Button>
-											<Button variant='warning'>
-												Edit
-											</Button>
+											<Link
+												href={{
+													pathname: '/edit-to-do',
+													query: { id: toDo._id }
+												}}
+											>
+												<Button variant='warning'>
+													Edit
+												</Button>
+											</Link>
 										</Card.Body>
 									</Card>
 								);
