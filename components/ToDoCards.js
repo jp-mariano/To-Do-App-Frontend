@@ -12,6 +12,7 @@ function ToDoCards({ cardTypeProp } ) {
 	// useStates
 	const [token, setToken] = useState();
 	const [toDoList, setToDoList] = useState([]);
+	const [reload, setReload] = useState(false);
 	
 	useEffect(() => {
 		setToken(AppHelper.getAccessToken());
@@ -38,12 +39,45 @@ function ToDoCards({ cardTypeProp } ) {
 					if (allDoneToDo) {
 						// This means that all to do's are already done
 						// Give a simple message to the user
-						function createNewToDoText() {
-							return (
-								<h4>Wow! Already finished all of that? Create new ones if you want.</h4>
-							);
+						
+						// If pending...
+						if (cardTypeProp === 'pending') {
+							function createNewToDoText() {
+								return (
+									<h4>Wow! Already finished all of that? Create new ones if you want.</h4>
+								);
+							}
+							toDos = createNewToDoText();
+							
+						} else {
+							// If done...
+							toDos = data.toDo.map(toDo => {
+								return (
+									<Card key={ toDo._id } className='mb-3'>
+										<Card.Header>
+											{ moment(toDo.toDoDate).format('D MMMM YYYY') }
+										</Card.Header>
+										<Card.Body>
+											<Card.Title>{ toDo.name }</Card.Title>
+											<Card.Text>{ toDo.description }</Card.Text>
+											<Button
+												onClick={ () => setToDoStatus(toDo._id, 'pending') }
+												variant='info'
+											>
+												Mark as pending
+											</Button>
+											
+											<Button
+												onClick={ () => deleteToDo(toDo._id) }
+												variant='danger'
+											>
+												Delete
+											</Button>
+										</Card.Body>
+									</Card>
+								);
+							});
 						}
-						toDos = createNewToDoText();
 						
 					} else {
 						// Render the user's to do list
@@ -58,11 +92,12 @@ function ToDoCards({ cardTypeProp } ) {
 											<Card.Title>{ toDo.name }</Card.Title>
 											<Card.Text>{ toDo.description }</Card.Text>
 											<Button
-												onClick={ () => setStatusToDone(toDo._id) }
+												onClick={ () => setToDoStatus(toDo._id, 'done') }
 												variant='info'
 											>
 												Mark as done
 											</Button>
+											
 											<Link
 												href={{
 													pathname: '/edit-to-do',
@@ -86,21 +121,18 @@ function ToDoCards({ cardTypeProp } ) {
 											<Card.Title>{ toDo.name }</Card.Title>
 											<Card.Text>{ toDo.description }</Card.Text>
 											<Button
-												onClick={ () => setStatusToDone(toDo._id) }
+												onClick={ () => setToDoStatus(toDo._id, 'pending') }
 												variant='info'
 											>
-												Mark as not done
+												Mark as pending
 											</Button>
-											<Link
-												href={{
-													pathname: '/edit-to-do',
-													query: { id: toDo._id }
-												}}
+											
+											<Button
+												onClick={ () => deleteToDo(toDo._id) }
+												variant='danger'
 											>
-												<Button variant='danger'>
-													Delete
-												</Button>
-											</Link>
+												Delete
+											</Button>
 										</Card.Body>
 									</Card>
 								);
@@ -126,14 +158,22 @@ function ToDoCards({ cardTypeProp } ) {
 		}
 		
 		fetchData();
-	}, [token, cardTypeProp]);
+	}, [token, cardTypeProp, reload]);
+	
+	// Soft reload function
+	function softReload() {
+		if (!reload) {
+			setReload(true);
+		} else {
+			setReload(false);
+		}
+	}
 	
 	// Change status to done
-	async function setStatusToDone(id) {
+	async function setToDoStatus(id, status) {
 		try	{
 			const shouldChange = await Swal.fire({
 				title: 'Are you sure?',
-				text: "This will send it to your Done To Do's.",
 				icon: 'info',
 				showCancelButton: true,
 				confirmButtonColor: '#3fc3ee',
@@ -149,20 +189,52 @@ function ToDoCards({ cardTypeProp } ) {
 						Authorization: `Bearer ${ token }`
 					},
 					body: JSON.stringify({
-						status: 'done'
+						status: status
 					})
 				});
 				
 				const confirmationMsg = await Swal.fire({
 					title: 'Success!',
-					text: "Your file has been sent to Done To Do's.",
 					icon: 'success',
-					confirmButtonColor: '#3fc3ee'
+					showConfirmButton: false,
+					timer: 1579
 				});
 				
-				if (confirmationMsg.isConfirmed) {
-					await router.reload();
-				}
+				await softReload();
+			}
+			
+		} catch (err) {
+			console.error(err);
+		}
+	}
+	
+	// Delete a To Do
+	async function deleteToDo(id) {
+		try {
+			const shouldDelete = await Swal.fire({
+				title: 'Are you sure?',
+				text: 'This action is irreversible.',
+				icon: 'info',
+				showCancelButton: true,
+				confirmButtonColor: '#3fc3ee',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, proceed.'
+			});
+			
+			if (shouldDelete.isConfirmed) {
+				const deleteRequest = await fetch(`${ AppHelper.API_URL }/users/delete-to-do/${ id }`, {
+					method: 'DELETE',
+					headers: { Authorization: `Bearer ${ token }` }
+				});
+				
+				const confirmationMsg = await Swal.fire({
+					title: 'Success!',
+					icon: 'success',
+					showConfirmButton: false,
+					timer: 1579
+				});
+				
+				await softReload();
 			}
 			
 		} catch (err) {
