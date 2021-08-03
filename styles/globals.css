@@ -4,6 +4,17 @@
 	padding: 0;
 }
 
+a, a:hover {
+	color: black;
+}
+
 body {
 	background-color: whitesmoke;
+}
+
+/* Home Page Footer Component  */
+#footer-container {
+	padding: 3px;
+	position: absolute;
+	bottom: 0;
 }

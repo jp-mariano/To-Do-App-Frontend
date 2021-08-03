@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import Head from '../components/Head';
+import Footer from '../components/HomePageFooter';
 
 function Home() {
 	const headData = {
@@ -11,6 +12,7 @@ function Home() {
 		<Fragment>
 			<Head dataProp={ headData } />
 			<h1>Home Page</h1>
+			<Footer />
 		</Fragment>
 	);
 }
