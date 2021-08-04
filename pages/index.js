@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import Head from '../components/Head';
+import Marquee from '../components/HomePageMarquee';
 import Footer from '../components/HomePageFooter';
 
 function Home() {
@@ -11,7 +12,7 @@ function Home() {
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
-			<h1>Home Page</h1>
+			<Marquee />
 			<Footer />
 		</Fragment>
 	);
