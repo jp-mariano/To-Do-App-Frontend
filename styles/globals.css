@@ -53,13 +53,13 @@ body {
 /* Home Page Footer Component  */
 #footer-component {
 	color: black;
+	font-family: 'Press Start 2P', sans-serif;
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	width: 100%;
 }
 
-#my-name {
-	font-family: 'Press Start 2P', sans-serif;
-	font-size: 0.69em;
+#footer-text {
+	font-size: 0.8em;
 }
