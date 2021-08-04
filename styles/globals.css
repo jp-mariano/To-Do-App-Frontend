@@ -15,6 +15,12 @@ body {
 	background-color: whitesmoke;
 }
 
+/* Navbar Component */
+#jpm-logo {
+	margin: 3px 11px 0 11px;
+	padding: 0;
+}
+
 /* Home Page Marquee Component */
 #marquee-component {
 	height: 55px;

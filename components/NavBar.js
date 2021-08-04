@@ -13,7 +13,7 @@ function NavBar() {
 	return (
 		<Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
 			{ token ?
-				<Navbar.Brand href='/dashboard'>
+				<Navbar.Brand href='/dashboard' id='jpm-logo'>
 					<Image
 						src='/jpm-logo-white.png'
 						height='30'
@@ -23,7 +23,7 @@ function NavBar() {
 					/>
 				</Navbar.Brand>
 				:
-				<Navbar.Brand href='/'>
+				<Navbar.Brand href='/' id='jpm-logo'>
 					<Image
 						src='/jpm-logo-white.png'
 						height='30'
@@ -34,29 +34,18 @@ function NavBar() {
 				</Navbar.Brand>
 			}
 			
-			<Navbar.Toggle aria-controls='responsive-navbar-nav' />
+			<Navbar.Toggle aria-controls='responsive-navbar-nav' className='me-3' />
 			<Navbar.Collapse id='responsive-navbar-nav'>
 				{ token ?
-					<Fragment>
-						<Nav className='me-auto'>
-							<Nav.Link href='/dashboard'>Dashboard</Nav.Link>
-						</Nav>
-						
-						<Nav>
-							<Nav.Link href='/logout'>Log Out</Nav.Link>
-						</Nav>
-					</Fragment>
+					<Nav className='ms-auto'>
+						<Nav.Link href='/dashboard' className='ms-2'>Dashboard</Nav.Link>
+						<Nav.Link href='/logout' className='ms-2 me-2'>Log Out</Nav.Link>
+					</Nav>
 					:
-					<Fragment>
-						<Nav className='me-auto'>
-							<Nav.Link></Nav.Link>
-						</Nav>
-						
-						<Nav>
-							<Nav.Link href='/register'>Register</Nav.Link>
-							<Nav.Link href='/login'>Log In</Nav.Link>
-						</Nav>
-					</Fragment>
+					<Nav className='ms-auto'>
+						<Nav.Link href='/register' className='ms-2'>Register</Nav.Link>
+						<Nav.Link href='/login' className='ms-2 me-2'>Log In</Nav.Link>
+					</Nav>
 				}
 			</Navbar.Collapse>
 		</Navbar>

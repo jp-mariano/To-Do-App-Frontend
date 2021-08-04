@@ -34,10 +34,10 @@ function Dashboard() {
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
-			<h2>{ header }</h2>
+			<h2 className='mt-3 mb-3'>{ header }</h2>
 			{ addToDoVisible ?
 				<Button
-					className='mb-4'
+					className='mb-4 me-2'
 					href='/add-to-do'
 					variant='primary'
 				>

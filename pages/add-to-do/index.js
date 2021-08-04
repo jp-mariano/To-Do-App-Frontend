@@ -78,7 +78,7 @@ function AddToDo() {
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
-			<h2>Add To Do</h2>
+			<h2 className='mt-3 mb-3'>Add To Do</h2>
 			<Form onSubmit={ createToDo }>
 				<Form.Group
 					className='mb-3'
@@ -109,7 +109,7 @@ function AddToDo() {
 				</Form.Group>
 				
 				<Form.Group
-					className='mb-3'
+					className='mb-4'
 					controlId='toDoDate'
 				>
 					<Form.Label>Date</Form.Label>
@@ -124,35 +124,33 @@ function AddToDo() {
 				{ isActive ?
 					<Fragment>
 						<Button
-							className='btn btn-block mb-3'
+							className='me-2'
 							variant='primary'
 							type='submit'
 						>
 							Create
 						</Button>
 						<Button
-							className='btn btn-block mb-3'
 							variant='dark'
 							href='/dashboard'
 						>
-							Back to Dashboard
+							Back
 						</Button>
 					</Fragment>
 					:
 					<Fragment>
 						<Button
-							className='btn btn-block mb-3'
+							className='me-2'
 							variant='secondary'
 							disabled
 						>
 							Create
 						</Button>
 						<Button
-							className='btn btn-block mb-3'
 							variant='dark'
 							href='/dashboard'
 						>
-							Back to Dashboard
+							Back
 						</Button>
 					</Fragment>
 				}

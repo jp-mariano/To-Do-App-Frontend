@@ -44,7 +44,7 @@ function ToDoCards({ cardTypeProp } ) {
 						if (cardTypeProp === 'pending') {
 							function createNewToDoText() {
 								return (
-									<h4>Wow! Already finished all of that? Create new ones if you want.</h4>
+									<h4 className='mt-3'>Wow! Already finished all of that? Create new ones if you want.</h4>
 								);
 							}
 							toDos = createNewToDoText();
@@ -63,6 +63,7 @@ function ToDoCards({ cardTypeProp } ) {
 											<Button
 												onClick={ () => setToDoStatus(toDo._id, 'pending') }
 												variant='info'
+												className='me-2'
 											>
 												Mark as pending
 											</Button>
@@ -94,6 +95,7 @@ function ToDoCards({ cardTypeProp } ) {
 											<Button
 												onClick={ () => setToDoStatus(toDo._id, 'done') }
 												variant='info'
+												className='me-2'
 											>
 												Mark as done
 											</Button>
@@ -123,6 +125,7 @@ function ToDoCards({ cardTypeProp } ) {
 											<Button
 												onClick={ () => setToDoStatus(toDo._id, 'pending') }
 												variant='info'
+												className='me-2'
 											>
 												Mark as pending
 											</Button>
@@ -144,7 +147,7 @@ function ToDoCards({ cardTypeProp } ) {
 					// Tell the new user to create a to do
 					function createToDoText() {
 						return (
-							<h4>Create your first task today!</h4>
+							<h4 className='mt-3'>Create your first task today!</h4>
 						);
 					}
 					toDos = createToDoText();

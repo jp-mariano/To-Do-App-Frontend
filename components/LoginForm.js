@@ -116,7 +116,7 @@ function LoginForm() {
 	
 	return (
 		<Fragment>
-			<h2>Log In</h2>
+			<h2 className='mt-3 mb-3'>Log In</h2>
 			<p>
 				Don&apos;t have an account yet? <Link href='/register'><a>Register now</a></Link>
 			</p>
@@ -127,6 +127,7 @@ function LoginForm() {
 						placeholder='Email'
 						value={ email }
 						onChange={(e) => setEmail(e.target.value)}
+						className='mb-2'
 						required
 					/>
 				</Form.Group>
@@ -137,6 +138,7 @@ function LoginForm() {
 						placeholder='Password'
 						value={ password }
 						onChange={(e) => setPassword(e.target.value)}
+						className='mb-2'
 						required
 					/>
 				</Form.Group>
@@ -146,25 +148,30 @@ function LoginForm() {
 						type='checkbox'
 						label='Show password'
 						onClick={ passwordToggle }
+						className='mb-4'
 					/>
 				</Form.Group>
 				
 				{ isActive ?
-					<Button
-						className='btn btn-block mb-3'
-						variant='primary'
-						type='submit'
-					>
-						Log In
-					</Button>
+					<div className='d-grid'>
+						<Button
+							className='mb-3'
+							variant='primary'
+							type='submit'
+						>
+							Log In
+						</Button>
+					</div>
 					:
-					<Button
-						className='btn btn-block mb-3'
-						variant='secondary'
-						disabled
-					>
-						Log In
-					</Button>
+					<div className='d-grid'>
+						<Button
+							className='mb-3'
+							variant='secondary'
+							disabled
+						>
+							Log In
+						</Button>
+					</div>
 				}
 			</Form>
 		</Fragment>

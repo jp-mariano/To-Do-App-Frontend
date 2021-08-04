@@ -101,7 +101,7 @@ function RegForm() {
 	
 	return (
 		<Fragment>
-			<h2>Register</h2>
+			<h2 className='mt-3 mb-3'>Register</h2>
 			<Form onSubmit={ registerUser }>
 				<h6>We&apos;ll never share your details with anyone else.</h6>
 				<Form.Group controlId='userGivenName'>
@@ -110,6 +110,7 @@ function RegForm() {
 						placeholder='Given Name'
 						value={ givenName }
 						onChange={(e) => setGivenName(e.target.value)}
+						className='mb-2'
 						required
 					/>
 				</Form.Group>
@@ -133,6 +134,7 @@ function RegForm() {
 						placeholder='Email'
 						value={ email }
 						onChange={(e) => setEmail(e.target.value)}
+						className='mb-2'
 						required
 					/>
 				</Form.Group>
@@ -143,6 +145,7 @@ function RegForm() {
 						placeholder='Password'
 						value={ password1 }
 						onChange={(e) => setPassword1(e.target.value)}
+						className='mb-2'
 						required
 					/>
 				</Form.Group>
@@ -153,6 +156,7 @@ function RegForm() {
 						placeholder='Verify Password'
 						value={ password2 }
 						onChange={(e) => setPassword2(e.target.value)}
+						className='mb-2'
 						required
 					/>
 				</Form.Group>
@@ -162,17 +166,22 @@ function RegForm() {
 						type='checkbox'
 						label='Show password'
 						onClick={ passwordToggle }
+						className='mb-4'
 					/>
 				</Form.Group>
 				
 				{ isActive ?
-					<Button className='mb-3 btn btn-block' variant='primary' type='submit'>
-						Submit
-					</Button>
+					<div className='d-grid'>
+						<Button variant='primary' size='md' type='submit'>
+							Submit
+						</Button>
+					</div>
 					:
-					<Button disabled className='mb-3 btn btn-block' variant='secondary'>
-						Submit
-					</Button>
+					<div className='d-grid'>
+						<Button disabled variant='secondary' size='md'>
+							Submit
+						</Button>
+					</div>
 				}
 			</Form>
 		</Fragment>
