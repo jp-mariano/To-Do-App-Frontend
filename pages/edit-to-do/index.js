@@ -173,7 +173,7 @@ function EditToDo() {
 					conrtolId='toDoName'
 				>
 					<Form.Text className='text-muted'>
-						Old Value: "{ oldName }"
+						Old Value: &quot;{ oldName }&quot;
 					</Form.Text>
 					<Form.Control
 						type='text'
@@ -188,7 +188,7 @@ function EditToDo() {
 					conrtolId='toDoDescription'
 				>
 					<Form.Text className='text-muted'>
-						Old Value: "{ oldDescription }"
+						Old Value: &quot;{ oldDescription }&quot;
 					</Form.Text>
 					<Form.Control
 						as='textarea'
@@ -205,7 +205,7 @@ function EditToDo() {
 					<Form.Label>Date*</Form.Label>
 					<br />
 					<Form.Text className='text-muted'>
-						Old Value: "{ oldDate }"
+						Old Value: &quot;{ oldDate }&quot;
 					</Form.Text>
 					<Form.Control
 						type='date'
