@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { GoogleLogin } from 'react-google-login';
 import Swal from 'sweetalert2';
 import AppHelper from '../helpers/app-helper';
 import { Button, Form } from 'react-bootstrap';
@@ -78,6 +79,46 @@ function LoginForm() {
 						icon: 'error',
 						title: 'Login Type Error',
 						text: 'You may have registered through a different login method, try an alternative login method',
+						confirmButtonColor: '#212529'
+					});
+				}
+			}
+			
+		} catch (err) {
+			console.error(err);
+		}
+	}
+	
+	// Google Authentication process
+	async function authenticateGoogleToken(res) {
+		try {
+			// Registration or Log in process with Google
+			const response = await fetch(`${ AppHelper.API_URL }/users/verify-google-token-id`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ tokenId: res.tokenId })
+			});
+			
+			const data = await response.json();
+			
+			if (typeof data.accessToken !== 'undefined') {
+				getUserDetails(data.accessToken);
+				localStorage.setItem('token', data.accessToken);
+				
+			} else {
+				if (data.error === 'login-type-error') {
+					Swal.fire({
+						icon: 'error',
+						title: 'Login Type Error',
+						text: 'You may have registered through a different login method, try an alternative login method',
+						confirmButtonColor: '#212529'
+					});
+					
+				} else if (data.error === 'google-auth-error') {
+					Swal.fire({
+						icon: 'error',
+						title: 'Google Auth Error',
+						text: 'Google authentication procedure failed.',
 						confirmButtonColor: '#212529'
 					});
 				}
@@ -173,6 +214,17 @@ function LoginForm() {
 						</Button>
 					</div>
 				}
+				<hr />
+				<div className='d-grid'>
+					<GoogleLogin
+						clientId={ AppHelper.CLIENT_ID }
+						buttonText='Continue with Google'
+						onSuccess={ authenticateGoogleToken }
+						onFailure={ authenticateGoogleToken }
+						cookiePolicy={ 'single_host_origin' }
+						className='justify-content-center'
+					/>
+				</div>
 			</Form>
 		</Fragment>
 	);
