@@ -71,9 +71,7 @@ function EditToDo() {
 	}
 	
 	// To edit a To Do
-	function editToDo(e) {
-		e.preventDefault();
-		
+	function editToDo() {		
 		async function fetchRequest(path, newData) {
 			try {
 				const response = await fetch(`${ AppHelper.API_URL }/users/edit/${ path }/${ id }`, {
@@ -140,11 +138,36 @@ function EditToDo() {
 		}
 	}
 	
+	// Confirmation Modal
+	async function confirmationModal(e) {
+		try {
+			e.preventDefault();
+			
+			const shouldEdit = await Swal.fire({
+				title: 'Are you sure?',
+				text: 'This will change the details of your To Do.',
+				icon: 'info',
+				showCancelButton: true,
+				confirmButtonColor: '#3fc3ee',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, proceed.'
+			});
+			
+			// If user confirms the message, proceed with the editing process
+			if (shouldEdit.isConfirmed) {
+				await editToDo();
+			}
+			
+		} catch (err) {
+			console.error(err);
+		}		
+	}
+	
 	return (
 		<Fragment>
 			<Head dataProp={ headData } />
 			<h2 className='mt-3 mb-3'>Edit To Do</h2>
-			<Form onSubmit={ editToDo }>
+			<Form onSubmit={ confirmationModal }>
 				<Form.Group
 					className='mb-3'
 					conrtolId='toDoName'
