@@ -31,6 +31,14 @@ function AddToDo() {
 		setToken(AppHelper.getAccessToken());
 	});
 	
+	// Clear all fields
+	function clearFields() {
+		setName('');
+		setDescription('');
+		setDate('');
+		setIsActive(false);
+	}
+	
 	// To create a new To Do
 	async function createToDo(e) {
 		try {
@@ -124,37 +132,47 @@ function AddToDo() {
 				{ isActive ?
 					<Fragment>
 						<Button
-							className='me-2'
+							className='me-2 mb-4'
 							variant='primary'
 							type='submit'
 						>
 							Create
 						</Button>
+						
 						<Button
-							variant='dark'
-							href='/dashboard'
+							className='me-2 mb-4'
+							variant='outline-primary'
+							onClick={ clearFields }
 						>
-							Back
+							Clear
 						</Button>
 					</Fragment>
 					:
 					<Fragment>
 						<Button
-							className='me-2'
+							className='me-2 mb-4'
 							variant='secondary'
 							disabled
 						>
 							Create
 						</Button>
+						
 						<Button
-							variant='dark'
-							href='/dashboard'
+							className='me-2 mb-4'
+							variant='outline-primary'
+							onClick={ clearFields }
 						>
-							Back
+							Clear
 						</Button>
 					</Fragment>
 				}
 			</Form>
+			<Button
+				variant='dark'
+				href='/dashboard'
+			>
+				Back to Dashboard
+			</Button>
 		</Fragment>
 	);
 }
