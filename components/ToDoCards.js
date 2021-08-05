@@ -28,6 +28,7 @@ function ToDoCards({ cardTypeProp } ) {
 				const data = await response.json();
 				
 				let toDos;
+				let sortedToDos;
 				
 				// Check if user is new, they're new if array length is equal to 0
 				if (data.toDo.length > 0) {
@@ -51,7 +52,11 @@ function ToDoCards({ cardTypeProp } ) {
 							
 						} else {
 							// If done...
-							toDos = data.toDo.map(toDo => {
+							sortedToDos = data.toDo.sort((a, b) => {
+								return moment(a.toDoDate).format('YYYYMMDD') - moment(b.toDoDate).format('YYYYMMDD');
+							});
+							
+							toDos = sortedToDos.map(toDo => {
 								return (
 									<Card key={ toDo._id } className='mb-3'>
 										<Card.Header>
@@ -82,7 +87,11 @@ function ToDoCards({ cardTypeProp } ) {
 						
 					} else {
 						// Render the user's to do list
-						toDos = data.toDo.map(toDo => {
+						sortedToDos = data.toDo.sort((a, b) => {
+							return moment(a.toDoDate).format('YYYYMMDD') - moment(b.toDoDate).format('YYYYMMDD');
+						});
+						
+						toDos = sortedToDos.map(toDo => {
 							if (toDo.status === 'pending' && cardTypeProp === 'pending') {
 								return (
 									<Card key={ toDo._id } className='mb-3'>
